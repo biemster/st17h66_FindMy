@@ -1,0 +1,350 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;/******************************************************
+                       ********************//**
+    2 00000000         ; * @file     startup_ARMCM0.s
+    3 00000000         ; * @brief    CMSIS Core Device Startup File for
+    4 00000000         ; *           ARMCM0 Device Series
+    5 00000000         ; * @version  V5.00
+    6 00000000         ; * @date     02. March 2016
+    7 00000000         ; ******************************************************
+                       ************************/
+    8 00000000         ;/*
+    9 00000000         ; * Copyright (c) 2009-2016 ARM Limited. All rights rese
+                       rved.
+   10 00000000         ; *
+   11 00000000         ; * SPDX-License-Identifier: Apache-2.0
+   12 00000000         ; *
+   13 00000000         ; * Licensed under the Apache License, Version 2.0 (the 
+                       License); you may
+   14 00000000         ; * not use this file except in compliance with the Lice
+                       nse.
+   15 00000000         ; * You may obtain a copy of the License at
+   16 00000000         ; *
+   17 00000000         ; * http://www.apache.org/licenses/LICENSE-2.0
+   18 00000000         ; *
+   19 00000000         ; * Unless required by applicable law or agreed to in wr
+                       iting, software
+   20 00000000         ; * distributed under the License is distributed on an A
+                       S IS BASIS, WITHOUT
+   21 00000000         ; * WARRANTIES OR CONDITIONS OF ANY KIND, either express
+                        or implied.
+   22 00000000         ; * See the License for the specific language governing 
+                       permissions and
+   23 00000000         ; * limitations under the License.
+   24 00000000         ; */
+   25 00000000         
+   26 00000000         ;/*
+   27 00000000         ;//-------- <<< Use Configuration Wizard in Context Menu
+                        >>> ------------------
+   28 00000000         ;*/
+   29 00000000         
+   30 00000000         
+   31 00000000         ; <h> Stack Configuration
+   32 00000000         ;   <o> Stack Size (in Bytes) <0x0-0xFFFFFFFF:8>
+   33 00000000         ; </h>
+   34 00000000         
+   35 00000000 00000400 
+                       Stack_Size
+                               EQU              0x00000400
+   36 00000000         
+   37 00000000                 AREA             STACK, NOINIT, READWRITE, ALIGN
+=3
+   38 00000000         Stack_Mem
+                               SPACE            Stack_Size
+   39 00000400         __initial_sp
+   40 00000400         
+   41 00000400         
+   42 00000400         ; <h> Heap Configuration
+   43 00000400         ;   <o>  Heap Size (in Bytes) <0x0-0xFFFFFFFF:8>
+   44 00000400         ; </h>
+   45 00000400         
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   46 00000400 00000200 
+                       Heap_Size
+                               EQU              0x00000200
+   47 00000400         
+   48 00000400                 AREA             HEAP, NOINIT, READWRITE, ALIGN=
+3
+   49 00000000         __heap_base
+   50 00000000         Heap_Mem
+                               SPACE            Heap_Size
+   51 00000200         __heap_limit
+   52 00000200         
+   53 00000200         
+   54 00000200                 PRESERVE8
+   55 00000200                 THUMB
+   56 00000200         
+   57 00000200         
+   58 00000200         ; Vector Table Mapped to Address 0 at Reset
+   59 00000200         
+   60 00000200                 AREA             RESET, DATA, READONLY
+   61 00000000                 EXPORT           __Vectors
+   62 00000000                 EXPORT           __Vectors_End
+   63 00000000                 EXPORT           __Vectors_Size
+   64 00000000         
+   65 00000000 00000000 
+                       __Vectors
+                               DCD              __initial_sp ; Top of Stack
+   66 00000004 00000000        DCD              Reset_Handler ; Reset Handler
+   67 00000008         __Vectors_End
+   68 00000008         
+   69 00000008 00000008 
+                       __Vectors_Size
+                               EQU              __Vectors_End - __Vectors
+   70 00000008         
+   71 00000008                 AREA             |.text|, CODE, READONLY
+   72 00000000         
+   73 00000000         
+   74 00000000         ; Reset Handler
+   75 00000000         
+   76 00000000         Reset_Handler
+                               PROC
+   77 00000000                 EXPORT           Reset_Handler             [WEAK
+]
+   78 00000000                 IMPORT           SystemInit
+   79 00000000                 IMPORT           __main
+   80 00000000 4802            LDR              R0, =SystemInit
+   81 00000002 4780            BLX              R0
+   82 00000004 4802            LDR              R0, =__main
+   83 00000006 4700            BX               R0
+   84 00000008                 ENDP
+   85 00000008         
+   86 00000008         
+   87 00000008         Default_Handler
+                               PROC
+   88 00000008 E7FE            B                .
+   89 0000000A                 ENDP
+   90 0000000A         
+   91 0000000A         
+   92 0000000A 00 00           ALIGN
+   93 0000000C         
+
+
+
+ARM Macro Assembler    Page 3 
+
+
+   94 0000000C         
+   95 0000000C         ; User Initial Stack & Heap
+   96 0000000C         
+   97 0000000C                 IF               :DEF:__MICROLIB
+   98 0000000C         
+   99 0000000C                 EXPORT           __initial_sp
+  100 0000000C                 EXPORT           __heap_base
+  101 0000000C                 EXPORT           __heap_limit
+  102 0000000C         
+  103 0000000C                 ELSE
+  118                          ENDIF
+  119 0000000C         
+  120 0000000C         
+  121 0000000C                 END
+              00000000 
+              00000000 
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M0 --apcs=interw
+ork --depend=.\objects\startup_armcm0.d -o.\objects\startup_armcm0.o -I.\RTE\_T
+arget_1 -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include -IC:\Keil_v5\ARM\PA
+CK\ARM\CMSIS\4.5.0\Device\ARM\ARMCM0\Include --predefine="__MICROLIB SETA 1" --
+predefine="__UVISION_VERSION SETA 531" --predefine="_RTE_ SETA 1" --predefine="
+ARMCM0 SETA 1" --predefine="_RTE_ SETA 1" --list=.\listings\startup_armcm0.lst 
+RTE\Device\ARMCM0\startup_ARMCM0.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+STACK 00000000
+
+Symbol: STACK
+   Definitions
+      At line 37 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+   Uses
+      None
+Comment: STACK unused
+Stack_Mem 00000000
+
+Symbol: Stack_Mem
+   Definitions
+      At line 38 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+   Uses
+      None
+Comment: Stack_Mem unused
+__initial_sp 00000400
+
+Symbol: __initial_sp
+   Definitions
+      At line 39 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+   Uses
+      At line 65 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+      At line 99 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+HEAP 00000000
+
+Symbol: HEAP
+   Definitions
+      At line 48 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+   Uses
+      None
+Comment: HEAP unused
+Heap_Mem 00000000
+
+Symbol: Heap_Mem
+   Definitions
+      At line 50 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+   Uses
+      None
+Comment: Heap_Mem unused
+__heap_base 00000000
+
+Symbol: __heap_base
+   Definitions
+      At line 49 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+   Uses
+      At line 100 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+Comment: __heap_base used once
+__heap_limit 00000200
+
+Symbol: __heap_limit
+   Definitions
+      At line 51 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+   Uses
+      At line 101 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+Comment: __heap_limit used once
+4 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 60 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+   Uses
+      None
+Comment: RESET unused
+__Vectors 00000000
+
+Symbol: __Vectors
+   Definitions
+      At line 65 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+   Uses
+      At line 61 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+      At line 69 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+
+__Vectors_End 00000008
+
+Symbol: __Vectors_End
+   Definitions
+      At line 67 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+   Uses
+      At line 62 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+      At line 69 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+.text 00000000
+
+Symbol: .text
+   Definitions
+      At line 71 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+   Uses
+      None
+Comment: .text unused
+Default_Handler 00000008
+
+Symbol: Default_Handler
+   Definitions
+      At line 87 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+   Uses
+      None
+Comment: Default_Handler unused
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 76 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+   Uses
+      At line 66 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+      At line 77 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+Heap_Size 00000200
+
+Symbol: Heap_Size
+   Definitions
+      At line 46 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+   Uses
+      At line 50 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+Comment: Heap_Size used once
+Stack_Size 00000400
+
+Symbol: Stack_Size
+   Definitions
+      At line 35 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+   Uses
+      At line 38 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+Comment: Stack_Size used once
+__Vectors_Size 00000008
+
+Symbol: __Vectors_Size
+   Definitions
+      At line 69 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+   Uses
+      At line 63 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+Comment: __Vectors_Size used once
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+External symbols
+
+SystemInit 00000000
+
+Symbol: SystemInit
+   Definitions
+      At line 78 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+   Uses
+      At line 80 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+Comment: SystemInit used once
+__main 00000000
+
+Symbol: __main
+   Definitions
+      At line 79 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+   Uses
+      At line 82 in file RTE\Device\ARMCM0\startup_ARMCM0.s
+Comment: __main used once
+2 symbols
+354 symbols in table
