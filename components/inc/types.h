@@ -18,10 +18,17 @@ typedef unsigned long   uint32;   //!< Unsigned 32 bit integer
 
 typedef uint8           halDataAlign_t; //!< Used for byte alignment
 
-#define ALIGN4_U8       _Alignas(4) uint8
-#define ALIGN4_U16      _Alignas(4) uint16
-#define ALIGN4_INT8     _Alignas(4) int8
-#define ALIGN4_INT16    _Alignas(4) int16
+#ifdef __GCC
+    #define ALIGN4_U8       _Alignas(4) uint8
+    #define ALIGN4_U16      _Alignas(4) uint16
+    #define ALIGN4_INT8     _Alignas(4) int8
+    #define ALIGN4_INT16    _Alignas(4) int16
+#else
+    #define ALIGN4_U8       __align(4) uint8
+    #define ALIGN4_U16      __align(4) uint16
+    #define ALIGN4_INT8     __align(4) int8
+    #define ALIGN4_INT16    __align(4) int16
+#endif
 
 #define    BIT(n)      (1ul << (n))
 

@@ -49,7 +49,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\Objects\</OutputDirectory>
-          <OutputName>simpleBlePeripheral</OutputName>
+          <OutputName>FindMy</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
@@ -82,8 +82,8 @@
           <AfterMake>
             <RunUserProg1>1</RunUserProg1>
             <RunUserProg2>1</RunUserProg2>
-            <UserProg1Name>fromelf.exe .\Objects\simpleBlePeripheral.axf --i32combined --output .\bin\simpleBlePeripheral.hex</UserProg1Name>
-            <UserProg2Name>fromelf -c -a -d -e -v -o simpleBlePeripheral.asm ./Objects/simpleBlePeripheral.axf</UserProg2Name>
+            <UserProg1Name>fromelf.exe .\Objects\FindMy.axf --i32combined --output .\bin\FindMy.hex</UserProg1Name>
+            <UserProg2Name>fromelf -c -a -d -e -v -o FindMy.asm ./Objects/FindMy.axf</UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
             <nStopA1X>0</nStopA1X>
@@ -339,7 +339,7 @@
               <MiscControls>-DADV_NCONN_CFG=0x01  -DADV_CONN_CFG=0x02  -DSCAN_CFG=0x04   -DINIT_CFG=0x08   -DBROADCASTER_CFG=0x01 -DOBSERVER_CFG=0x02  -DPERIPHERAL_CFG=0x04  -DCENTRAL_CFG=0x08 </MiscControls>
               <Define>DEBUG_INFO=0  CFG_CP  OSAL_CBTIMER_NUM_TASKS=1 MTU_SIZE=247 HOST_CONFIG=4 HCI_TL_NONE=1 ENABLE_LOG_ROM_=0  _BUILD_FOR_DTM_=0  DBG_ROM_MAIN=0 APP_CFG=0  OSALMEM_METRICS=0 PHY_MCU_TYPE=MCU_BUMBEE_M0 CFG_SLEEP_MODE=PWR_MODE_SLEEP DEF_GAPBOND_MGR_ENABLE=0 USE_FS=0 MAX_NUM_LL_CONN=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\components\inc;..\..\..\components\ble\controller;..\..\..\components\osal\include;..\..\..\components\common;..\..\..\components\ble\include;..\..\..\components\ble\hci;..\..\..\components\ble\host;..\..\..\components\Profiles\ota_app;..\..\..\components\Profiles\DevInfo;..\..\..\components\Profiles\SimpleProfile;..\..\..\components\Profiles\Roles;.\source;..\..\..\components\libraries\crc16;..\..\..\components\driver\watchdog;..\..\..\components\driver\clock;..\..\..\components\arch\cm0;..\..\..\components\driver\pwrmgr;..\..\..\components\driver\uart;..\..\..\components\driver\gpio;..\..\..\components\driver\timer;..\..\..\misc;..\..\..\components\driver\log;..\..\..\components\libraries\cliface;..\..\..\components\driver\key;..\..\..\components\driver\pwm;..\..\..\components\driver\flash;..\..\..\components\libraries\fs;..\..\..\components\driver\led_light</IncludePath>
+              <IncludePath>..\components\inc;..\components\ble\controller;..\components\osal\include;..\components\common;..\components\ble\include;..\components\ble\hci;..\components\ble\host;..\components\Profiles\ota_app;..\components\Profiles\DevInfo;..\components\Profiles\SimpleProfile;..\components\Profiles\Roles;.\source;..\components\libraries\crc16;..\components\driver\watchdog;..\components\driver\clock;..\components\arch\cm0;..\components\driver\pwrmgr;..\components\driver\uart;..\components\driver\gpio;..\components\driver\timer;..\misc;..\components\driver\log;..\components\libraries\cliface;..\components\driver\key;..\components\driver\pwm;..\components\driver\flash;..\components\libraries\fs;..\components\driver\led_light</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -373,7 +373,7 @@
             <ScatterFile>.\scatter_load.sct</ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
-            <Misc>..\..\..\misc\bb_rom_sym_m0.txt  --keep=jump_table_base  --keep=global_config</Misc>
+            <Misc>..\misc\bb_rom_sym_m0.txt  --keep=jump_table_base  --keep=global_config</Misc>
             <LinkerInputFile></LinkerInputFile>
             <DisabledWarnings></DisabledWarnings>
           </LDads>
@@ -396,72 +396,72 @@
             <File>
               <FileName>uart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\driver\uart\uart.c</FilePath>
+              <FilePath>..\components\driver\uart\uart.c</FilePath>
             </File>
             <File>
               <FileName>clock.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\driver\clock\clock.c</FilePath>
+              <FilePath>..\components\driver\clock\clock.c</FilePath>
             </File>
             <File>
               <FileName>gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\driver\gpio\gpio.c</FilePath>
+              <FilePath>..\components\driver\gpio\gpio.c</FilePath>
             </File>
             <File>
               <FileName>timer.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\driver\timer\timer.c</FilePath>
+              <FilePath>..\components\driver\timer\timer.c</FilePath>
             </File>
             <File>
               <FileName>watchdog.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\driver\watchdog\watchdog.c</FilePath>
+              <FilePath>..\components\driver\watchdog\watchdog.c</FilePath>
             </File>
             <File>
               <FileName>pwrmgr.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\driver\pwrmgr\pwrmgr.c</FilePath>
+              <FilePath>..\components\driver\pwrmgr\pwrmgr.c</FilePath>
             </File>
             <File>
               <FileName>my_printf.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\driver\log\my_printf.c</FilePath>
+              <FilePath>..\components\driver\log\my_printf.c</FilePath>
             </File>
             <File>
               <FileName>key.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\driver\key\key.c</FilePath>
+              <FilePath>..\components\driver\key\key.c</FilePath>
             </File>
             <File>
               <FileName>pwm.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\driver\pwm\pwm.c</FilePath>
+              <FilePath>..\components\driver\pwm\pwm.c</FilePath>
             </File>
             <File>
               <FileName>osal_snv.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\osal\snv\osal_snv.c</FilePath>
+              <FilePath>..\components\osal\snv\osal_snv.c</FilePath>
             </File>
             <File>
               <FileName>flash.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\driver\flash\flash.c</FilePath>
+              <FilePath>..\components\driver\flash\flash.c</FilePath>
             </File>
             <File>
               <FileName>led_light.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\driver\led_light\led_light.c</FilePath>
+              <FilePath>..\components\driver\led_light\led_light.c</FilePath>
             </File>
             <File>
               <FileName>fs.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\libraries\fs\fs.c</FilePath>
+              <FilePath>..\components\libraries\fs\fs.c</FilePath>
             </File>
             <File>
               <FileName>fs.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\..\..\components\libraries\fs\fs.h</FilePath>
+              <FilePath>..\components\libraries\fs\fs.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -471,7 +471,7 @@
             <File>
               <FileName>central.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\profiles\Roles\central.c</FilePath>
+              <FilePath>..\components\profiles\Roles\central.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>2</UseCPPCompiler>
@@ -527,12 +527,12 @@
             <File>
               <FileName>gap.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\profiles\Roles\gap.c</FilePath>
+              <FilePath>..\components\profiles\Roles\gap.c</FilePath>
             </File>
             <File>
               <FileName>gapbondmgr.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\profiles\Roles\gapbondmgr.c</FilePath>
+              <FilePath>..\components\profiles\Roles\gapbondmgr.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>2</UseCPPCompiler>
@@ -588,22 +588,22 @@
             <File>
               <FileName>gapgattserver.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\profiles\Roles\gapgattserver.c</FilePath>
+              <FilePath>..\components\profiles\Roles\gapgattserver.c</FilePath>
             </File>
             <File>
               <FileName>peripheral.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\profiles\Roles\peripheral.c</FilePath>
+              <FilePath>..\components\profiles\Roles\peripheral.c</FilePath>
             </File>
             <File>
               <FileName>gattservapp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\profiles\GATT\gattservapp.c</FilePath>
+              <FilePath>..\components\profiles\GATT\gattservapp.c</FilePath>
             </File>
             <File>
               <FileName>ota_app_service.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\components\profiles\ota_app\ota_app_service.c</FilePath>
+              <FilePath>..\components\profiles\ota_app\ota_app_service.c</FilePath>
             </File>
             <File>
               <FileName>sbpProfile_ota.c</FileName>
@@ -618,7 +618,7 @@
             <File>
               <FileName>jump_table.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\misc\jump_table.c</FilePath>
+              <FilePath>..\misc\jump_table.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -628,17 +628,17 @@
             <File>
               <FileName>rf.lib</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\..\lib\rf.lib</FilePath>
+              <FilePath>..\lib\rf.lib</FilePath>
             </File>
             <File>
               <FileName>ble_host.lib</FileName>
               <FileType>4</FileType>
-              <FilePath>..\..\..\lib\ble_host.lib</FilePath>
+              <FilePath>..\lib\ble_host.lib</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>simpleBlePeripheral</GroupName>
+          <GroupName>FindMy</GroupName>
           <Files>
             <File>
               <FileName>OSAL_SimpleBLEPeripheral.c</FileName>
@@ -646,9 +646,9 @@
               <FilePath>.\source\OSAL_SimpleBLEPeripheral.c</FilePath>
             </File>
             <File>
-              <FileName>simpleBLEPeripheral.c</FileName>
+              <FileName>FindMy.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\source\simpleBLEPeripheral.c</FilePath>
+              <FilePath>.\source\FindMy.c</FilePath>
             </File>
             <File>
               <FileName>SimpleBLEPeripheral_Main.c</FileName>
