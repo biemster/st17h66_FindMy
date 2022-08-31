@@ -1,6 +1,6 @@
 ##############################################################################
 BUILD = build
-BIN = simpleBlePeripheral_low_power
+BIN = FindMy
 SDK_PATH = ../
 CMSIS_PATH = ../../CMSIS_5/
 ##############################################################################
@@ -55,6 +55,44 @@ INCLUDES += \
 
 SRCS += \
   ./main.c \
+  $(SDK_PATH)/lib/rf/patch.c \
+  $(SDK_PATH)/lib/sec/phy_sec_ext.c \
+  $(SDK_PATH)/lib/sec/aes.c \
+  $(SDK_PATH)/lib/ble_host/att_client.c \
+  $(SDK_PATH)/lib/ble_host/att_server.c \
+  $(SDK_PATH)/lib/ble_host/att_util.c \
+  $(SDK_PATH)/lib/ble_host/gap_centdevmgr.c \
+  $(SDK_PATH)/lib/ble_host/gap_centlinkmgr.c \
+  $(SDK_PATH)/lib/ble_host/gap_configmgr.c \
+  $(SDK_PATH)/lib/ble_host/gap_devmgr.c \
+  $(SDK_PATH)/lib/ble_host/gap_linkmgr.c \
+  $(SDK_PATH)/lib/ble_host/gap_peridevmgr.c \
+  $(SDK_PATH)/lib/ble_host/gap_perilinkmgr.c \
+  $(SDK_PATH)/lib/ble_host/gap_simpletask.c \
+  $(SDK_PATH)/lib/ble_host/gap_task.c \
+  $(SDK_PATH)/lib/ble_host/gatt_client.c \
+  $(SDK_PATH)/lib/ble_host/gatt_server.c \
+  $(SDK_PATH)/lib/ble_host/gatt_task.c \
+  $(SDK_PATH)/lib/ble_host/gatt_uuid.c \
+  $(SDK_PATH)/lib/ble_host/l2cap_if.c \
+  $(SDK_PATH)/lib/ble_host/l2cap_task.c \
+  $(SDK_PATH)/lib/ble_host/l2cap_util.c \
+  $(SDK_PATH)/lib/ble_host/linkdb.c \
+  $(SDK_PATH)/lib/ble_host/sm_intpairing.c \
+  $(SDK_PATH)/lib/ble_host/sm_mgr.c \
+  $(SDK_PATH)/lib/ble_host/sm_pairing.c \
+  $(SDK_PATH)/lib/ble_host/smp.c \
+  $(SDK_PATH)/lib/ble_host/sm_rsppairing.c \
+  $(SDK_PATH)/lib/ble_host/sm_task.c \
+  $(SDK_PATH)/lib/ble_controller/ll_common.c \
+  $(SDK_PATH)/lib/ble_controller/ll_enc.c \
+  $(SDK_PATH)/lib/ble_controller/ll_hw_drv.c \
+  $(SDK_PATH)/lib/ble_controller/ll_hwItf.c \
+  $(SDK_PATH)/lib/ble_controller/ll.c \
+  $(SDK_PATH)/lib/ble_controller/ll_masterEndCauses.c \
+  $(SDK_PATH)/lib/ble_controller/ll_slaveEndCauses.c \
+  $(SDK_PATH)/lib/ble_controller/ll_sleep.c \
+  $(SDK_PATH)/lib/ble_controller/rf_phy_driver.c \
   $(SDK_PATH)/components/profiles/Roles/central.c \
   $(SDK_PATH)/components/driver/clock/clock.c \
   $(SDK_PATH)/components/driver/flash/flash.c \

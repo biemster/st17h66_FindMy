@@ -18,7 +18,7 @@ extern "C"
 /*********************************************************************
     INCLUDES
 */
-#include "osal_cbTimer.h"
+#include "osal_cbtimer.h"
 
 #include "l2cap.h"
 #include "att.h"

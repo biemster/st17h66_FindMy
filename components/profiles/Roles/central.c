@@ -6,7 +6,7 @@
 */
 #include "bcomdef.h"
 #include "OSAL.h"
-#include "osal_cbTimer.h"
+#include "osal_cbtimer.h"
 #include "osal_snv.h"
 #include "hci_tl.h"
 #include "l2cap.h"

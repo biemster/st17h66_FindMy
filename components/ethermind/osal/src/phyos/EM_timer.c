@@ -29,7 +29,7 @@ TIMER_ENTITY* timer_q_end   = NULL;
 #if 1
 /* Timer */
 #if defined ( OSAL_CBTIMER_NUM_TASKS )
-    #include "osal_cbTimer.h"
+    #include "osal_cbtimer.h"
 #endif
 
 
