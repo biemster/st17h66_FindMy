@@ -19,6 +19,8 @@ CFLAGS += -MD -MP -MT $(BUILD)/$(*F).o -MF $(BUILD)/$(@F).d
 
 LDFLAGS += -mcpu=cortex-m0 -mthumb -mthumb-interwork
 LDFLAGS += -Wl,--gc-sections
+LDFLAGS += -Wl,--script=./RTE/Device/ARMCM0/phy6202.ld
+LDFLAGS += -Wl,--just-symbols=$(SDK_PATH)/misc/bb_rom_sym_m0.gcc
 
 INCLUDES += \
   -I./source \
@@ -74,6 +76,7 @@ SRCS += \
   $(SDK_PATH)/components/driver/uart/uart.c \
   $(SDK_PATH)/components/driver/watchdog/watchdog.c \
   $(SDK_PATH)/misc/jump_table.c \
+  ./RTE/Device/ARMCM0/startup_ARMCM0.c \
   ./RTE/Device/ARMCM0/system_ARMCM0.c \
   ./source/OSAL_SimpleBLEPeripheral.c \
   ./source/sbpProfile_ota.c \
