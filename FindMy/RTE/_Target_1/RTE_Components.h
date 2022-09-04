@@ -3,7 +3,7 @@
  * Auto generated Run-Time-Environment Configuration File
  *      *** Do not modify ! ***
  *
- * Project: 'simpleBlePeripheral' 
+ * Project: 'FindMy' 
  * Target:  'Target 1' 
  */
 

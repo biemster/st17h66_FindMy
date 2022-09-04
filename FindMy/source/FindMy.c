@@ -105,35 +105,45 @@ static	gaprole_States_t	gapProfileState	=	GAPROLE_INIT;
 
 
 uint8	dev_mac_data[MAC_DATA_LEN]	=	{0x00,0x00,0x00,0x00,0x00,0x00};
-// GAP - SCAN RSP data (max size = 31 bytes)
-static uint8 scanRspData[] =
-{
-	0x0E, 
-	GAP_ADTYPE_MANUFACTURER_SPECIFIC, 
-	0xFF, 0xFF, 
-	0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-	0x66,
-	0xFF,
-	0x03, 0x04,
-	0x00,
+static uint8 public_key[] = {
+	0x11,0x22,0x33,0x44,0x55,0x66,0x77,0x88,0x99,0xaa,0xbb,0xcc,0xdd,0xef,
+	0xfe,0xdd,0xcc,0xbb,0xaa,0x99,0x88,0x77,0x66,0x55,0x44,0x33,0x22,0x11
 };
 
-// advert data for iBeacon
-static uint8 advertData[] =
-{	
-    0x02,   // length of this data
-    GAP_ADTYPE_FLAGS,
-    DEFAULT_DISCOVERABLE_MODE | GAP_ADTYPE_FLAGS_BREDR_NOT_SUPPORTED,
-	0x03, 
-	GAP_ADTYPE_16BIT_MORE,
-	LO_UINT16(SIMPLEPROFILE_SERV_UUID), HI_UINT16(SIMPLEPROFILE_SERV_UUID),
-	0x0B, 
-	GAP_ADTYPE_LOCAL_NAME_COMPLETE, 
-	'G', 'A', 'T', 'T', '-', '-', 'D', 'E', 'M', 'O',
+void set_addr_from_key(uint8 *dev_mac_data, uint8 *public_key)
+{
+	dev_mac_data[0] = public_key[0] | 0xc0;
+	dev_mac_data[1] = public_key[1];
+	dev_mac_data[2] = public_key[2];
+	dev_mac_data[3] = public_key[3];
+	dev_mac_data[4] = public_key[4];
+	dev_mac_data[5] = public_key[5];
+};
+
+void set_payload_from_key(uint8_t *payload, uint8_t *public_key) {
+	/* copy last 22 bytes */
+	osal_memcpy(&payload[7], &public_key[6], 22);
+	/* append two bits of public key */
+	payload[29] = public_key[0] >> 6;
+}
+
+/** Advertisement payload */
+static uint8 advertData[] = 
+{
+	0x1e, /* Length (30) */
+	0xff, /* Manufacturer Specific Data (type 0xff) */
+	0x4c, 0x00, /* Company ID (Apple) */
+	0x12, 0x19, /* Offline Finding type and length */
+	0x00, /* State */
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	0x00, /* First two bits */
+	0x00, /* Hint (0x00) */
 };
 
 // GAP GATT Attributes
-static uint8 attDeviceName[GAP_DEVICE_NAME_LEN] = "GATT--DEMO";
+static uint8 attDeviceName[GAP_DEVICE_NAME_LEN] = "FindMy";
 /*********************************************************************
  * LOCAL FUNCTIONS
  */
@@ -220,11 +230,8 @@ void SimpleBLEPeripheral_Init( uint8 task_id )
 		};
 
 		{
-			hal_flash_read(0x4004, dev_mac_data, 2);
-			hal_flash_read(0x4000, dev_mac_data+2, 4);
-			LOG("dev_mac_data: 0x");
-			LOG_DUMP_BYTE(dev_mac_data, MAC_DATA_LEN);
-			VOID osal_memcpy(scanRspData + RSP_OFFSET_MAC, dev_mac_data, MAC_DATA_LEN);
+			set_addr_from_key(dev_mac_data, public_key);
+			set_payload_from_key(advertData, public_key);
 		}
 
 //        uint8 advType =g_current_advType;// LL_ADV_NONCONNECTABLE_UNDIRECTED_EVT;//LL_ADV_SCANNABLE_UNDIRECTED_EVT;//LL_ADV_CONNECTABLE_LDC_DIRECTED_EVT;//;    // it seems a  bug to set GAP_ADTYPE_ADV_NONCONN_IND = 0x03
@@ -237,7 +244,6 @@ void SimpleBLEPeripheral_Init( uint8 task_id )
         // Set the GAP Role Parameters
         GAPRole_SetParameter( GAPROLE_ADVERT_ENABLED,	sizeof( uint8 ),		&initial_advertising_enable );
         GAPRole_SetParameter( GAPROLE_ADVERT_OFF_TIME,	sizeof( uint16 ),		&gapRole_AdvertOffTime 	);
-        GAPRole_SetParameter( GAPROLE_SCAN_RSP_DATA,	sizeof( scanRspData),	scanRspData	);
         GAPRole_SetParameter( GAPROLE_ADVERT_DATA,		sizeof( advertData ),	advertData	);
         GAPRole_SetParameter( GAPROLE_PARAM_UPDATE_ENABLE,	sizeof( uint8  ),	&enable_update_request	);
         GAPRole_SetParameter( GAPROLE_MIN_CONN_INTERVAL,	sizeof( uint16 ),	&desired_min_interval	);
@@ -251,7 +257,7 @@ void SimpleBLEPeripheral_Init( uint8 task_id )
 
     // Set advertising interval
     {
-        uint16 advInt = 1600; ///1600;//2400;//1600;//1600;//800;//1600;   // actual time = advInt * 625us
+        uint16 advInt = 5000; ///1600;//2400;//1600;//1600;//800;//1600;   // actual time = advInt * 625us
 
         GAP_SetParamValue( TGAP_LIM_DISC_ADV_INT_MIN, advInt );
         GAP_SetParamValue( TGAP_LIM_DISC_ADV_INT_MAX, advInt );

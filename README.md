@@ -2,10 +2,10 @@
 Firmware for Lenze ST17h66 that advertises to the Apple Find My network, based on SDK v3.1.1.2
 
 ## Compile
-To compile this firmware either arm-none-eabi-gcc and CMSIS headers, or Keil uVision are required. This is still very much a work in progress, so your mileage may vary.
+To compile this firmware either arm-none-eabi-gcc and CMSIS headers, or Keil uVision are required. The GCC path does not work yet, so use Keil.
 
 ### Compile with Keil
-This should work properly, just open the FindMy.uvprojx and build. (For now it does not work though, since it is just the ST17H65_SDK_3.1.1.2_lowPower_beacon example. But it is still something)
+This should work properly, just open the FindMy.uvprojx and build.
 
 ### Compile with GCC
 ```
