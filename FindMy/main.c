@@ -140,9 +140,7 @@ static void hal_low_power_io_init(void)
 		hal_pwrmgr_RAM_retention(RET_SRAM0);/// ?¨´?Y¨º¦Ì?¨º¨®|¨®?¡ê???¨¦¨´sram
     // hal_pwrmgr_RAM_retention(RET_SRAM0);
     hal_pwrmgr_RAM_retention_set();
-#if (SDK_VER_CHIP == __DEF_CHIP_QFN32__)
 		hal_pwrmgr_LowCurrentLdo_enable();	//// 17H65 ?a???¨¦¨°???¨¦¨´1|o?¡ê? 17H662??¨¹?a??
-#endif
 }
 
 static void ble_mem_init_config(void)
