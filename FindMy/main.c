@@ -101,14 +101,14 @@ extern uint32_t  __initial_sp;
 
 static void hal_low_power_io_init(void)
 {
-    //========= pull all io to gnd by default
+    //========= disable all gpio pullup/down to preserve juice
 	ioinit_cfg_t ioInit[]=
 	{
 		{GPIO_P02,   GPIO_FLOATING   },
 		{GPIO_P03,   GPIO_FLOATING   },
 		{GPIO_P07,   GPIO_FLOATING   },
-		{GPIO_P09,   GPIO_PULL_UP    },
-		{GPIO_P10,   GPIO_PULL_UP    },
+		{GPIO_P09,   GPIO_FLOATING   },
+		{GPIO_P10,   GPIO_FLOATING   },
 		{GPIO_P11,   GPIO_FLOATING   },
 		{GPIO_P14,   GPIO_FLOATING   },
 		{GPIO_P15,   GPIO_FLOATING   },        
