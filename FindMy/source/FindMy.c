@@ -257,7 +257,7 @@ void SimpleBLEPeripheral_Init( uint8 task_id )
 
     // Set advertising interval
     {
-        uint16 advInt = 5000; ///1600;//2400;//1600;//1600;//800;//1600;   // actual time = advInt * 625us
+        uint16 advInt = //8000; //1600;//2400;//1600;//1600;//800;//1600;   // actual time = advInt * 625us
 
         GAP_SetParamValue( TGAP_LIM_DISC_ADV_INT_MIN, advInt );
         GAP_SetParamValue( TGAP_LIM_DISC_ADV_INT_MAX, advInt );
