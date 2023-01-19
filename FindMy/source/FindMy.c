@@ -208,7 +208,7 @@ void SimpleBLEPeripheral_Init( uint8 task_id )
         uint8 initial_advertising_enable	=	FALSE;
 
         uint8 enable_update_request			=	DEFAULT_ENABLE_UPDATE_REQUEST;
-        uint8 advChnMap		=		GAP_ADVCHAN_37;// | GAP_ADVCHAN_38 | GAP_ADVCHAN_39; 
+        uint8 advChnMap		=	GAP_ADVCHAN_37 | GAP_ADVCHAN_38 | GAP_ADVCHAN_39; 
         
         // By setting this to zero, the device will go into the waiting state after
         // being discoverable for 30.72 second, and will not being advertising again
@@ -257,7 +257,7 @@ void SimpleBLEPeripheral_Init( uint8 task_id )
 
     // Set advertising interval
     {
-        uint16 advInt = //8000; //1600;//2400;//1600;//1600;//800;//1600;   // actual time = advInt * 625us
+        uint16 advInt = 8000; //1600;//2400;//1600;//1600;//800;//1600;   // actual time = advInt * 625us
 
         GAP_SetParamValue( TGAP_LIM_DISC_ADV_INT_MIN, advInt );
         GAP_SetParamValue( TGAP_LIM_DISC_ADV_INT_MAX, advInt );
